@@ -93,11 +93,13 @@ My approach works out how much food is on the plate by looking only at the inner
 
 If we used the whole plate bounding box, the camera would see the empty rim of the plate and count it as empty space. This should not be the case as the rim would be empty is case of a full meal on the plate as well.
 
-To fix this, I draw a smaller **inner ellipse** that cuts out the rim using a **"shrink pad"**.
+To fix this, I draw a smaller **inner ellipse** that cuts out the rim.
 
 #### Masking Strategy
 
-I draw boxes over any detected hands or spoons to block them out, so a hand covering the plate is not counted as food.
+I draw boxes over any detected hands or spoons to block them out, so a hand covering the plate is not counted as food. Leaving covered pixels out means the hidden part of the plate is assumed to have the same food-to-plate ratio as the visible part.
+
+
 
 The system then looks for white pixels (empty plate) inside the inner ellipse, and counts everything that is not white as food:
 
@@ -109,8 +111,8 @@ Amount wasted (%) = food pixels / visible pixels inside the inner ellipse × 100
 
 Different meals need different inner circles because of how the food sits on the plate.
 
-- For a **"KFC Meal"** or **"Sandwich Meal"**, the ellipse is shrunk inward by **50 pixels** for a tighter look at the food.
-- For a **"Biryani Meal"** or **"Salad Meal"**, it is shrunk by only **25 pixels**.
+- For a **"KFC Meal"** or **"Sandwich Meal"**, the ellipse is shrunk inward by **50 pixels**.
+- For a **"Biryani Meal"** or **"Salad Meal"**, it is shrunk by only **25 pixels**, as these meals would spread out on the plate more, and less part of the rim would be empty 
 
 The main edge cases catered to are:
 
@@ -119,21 +121,11 @@ The main edge cases catered to are:
 
 These are handled with the hand-masking and inner-ellipse padding techniques.
 
-This part of the assignment reminded me of my Computer Vision professor, who told us in class to only use a model when necessary and never to underestimate the power of classical computer vision. Without colour masking, I would have needed a segmentation model to find the food pixels.
+This part of the assignment reminded me of my computer vision professor, who told us in class to only use a model when necessary. Without colour masking, I would have needed a segmentation model to find the food pixels.
 
 ### 2. How I See This Solution Running in Production
 
-In production, this step would run the moment a snapshot is locked in for an event.
-
-Kitchen staff would not need to weigh plates by hand. The application would:
-
-1. Take the snapshot image.
-2. Calculate the percentage of leftover food.
-3. Save a highlighted image showing exactly what it counted as food (green) versus empty plate (blue).
-
-This creates a visual record the restaurant can easily check.
-
-However, this strategy is not very accurate on its own, because a top-down view cannot see depth:
+This strategy is not very accurate on its own, because a top-down view cannot see depth:
 
 - Food can be **stacked up** and cover less of the plate's surface, so the pipeline would **underestimate** the waste.
 - A small amount of rice could be **spread out** across the plate and look like a full meal, so the pipeline would **overestimate** the waste.
@@ -154,7 +146,7 @@ I could have improved this with a model that learns the difference between **"fo
 
 ### 1. My Approach and Edge Cases Catered
 
-My approach converts the visual percentage of wasted food into a weight in grams using predefined values.
+My approach converts the visual percentage of wasted food into weight in grams using predefined values.
 
 The food weights were gathered through secondary research, cited in [References](#references). For example, one Instagram creator weighed the entire KFC menu, and KFC was one of the meals in the footage provided.
 
@@ -162,12 +154,12 @@ The process works as follows:
 
 1. YOLO detects the food items on the plate.
 2. The detected items are used to classify the meal type, checked in this order:
-   - Burger or drumstick → **KFC Meal**
-   - Sandwich → **Sandwich Meal**
+   - Burger, drumstick and fries → **KFC Meal**
+   - Sandwich and fries → **Sandwich Meal**
    - At least 2 salad items → **Salad Meal**
-   - Biryani or chicken → **Biryani Meal**
+   - Biryani and chicken → **Biryani Meal**
 3. A baseline weight for the meal is calculated by adding up its components from `meal_weights.json`.
-4. The **"Salad Meal"** uses a specific recipe:
+4. An assumption was that the **"Salad Meal"** uses the following recipe:
    - 1 carrot
    - 1 cucumber
    - 0.25 of an onion
@@ -191,9 +183,7 @@ If the system detects food but cannot work out which meal it is, it falls back t
 
 ### 2. How I See This Solution Running in Production
 
-In a live cafeteria, percentages alone are not enough; managers need the physical weight to calculate the money lost. Because the gram values are saved to a CSV file automatically, managers could load the data into Excel at the end of the week and see how many kilograms of each meal were thrown away. This can help them adjust their grocery orders and reduce food waste.
-
-That said, estimating weight from a picture is not very reliable. In production, I would suggest placing the bin on a **weighing scale** whose display is visible to the camera. The system could then read the increase in total weight caused by each waste event. My current strategy would serve as a fallback when the scale reading is not available.
+This approach is not very reliable. In production, I would suggest placing the bin on a **weighing scale** whose display is visible to the camera. The system could then read the increase in total weight caused by each waste event. My current strategy would serve as a fallback.
 
 ### 3. What I Could Have Done Better
 
