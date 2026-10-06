@@ -80,7 +80,6 @@ Some automation tasks give the best results with a little amount of human help. 
 
 - **More varied data:** I could have collected more data with food being thrown away from more directions. The snapshot logic currently assumes the plate approaches the bin from one side, matching the camera setup in the provided footage.
 - **Multiple plates:** The system tracks one plate at a time. I could have handled several plates being emptied into the bin at once.
-- **Better overlap check:** The system checks whether simple bounding boxes overlap. When a plate is held at a slanted angle, its box looks bigger than the plate really is. I could have used the exact curved outline of the plate for the overlap check, which would be more accurate in crowded or messy camera views.
 
 ---
 
