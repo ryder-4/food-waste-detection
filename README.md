@@ -87,13 +87,11 @@ Some automation tasks give the best results with a little amount of human help. 
 
 ### 1. My Approach and Edge Cases Catered
 
-This part of the assignment reminded me of my Computer Vision professor, who told us in class to only use a model when necessary and never to underestimate the power of classical computer vision. Without colour masking, I would have needed a segmentation model to find the food pixels.
-
 My approach works out how much food is on the plate by looking only at the inner part of the plate and finding the empty white space.
 
 #### Inner Circle Intuition
 
-If we used the whole plate bounding box, the camera would see the ceramic rim of the plate and count it as empty space.
+If we used the whole plate bounding box, the camera would see the empty rim of the plate and count it as empty space. This should not be the case as the rim would be empty is case of a full meal on the plate as well.
 
 To fix this, I draw a smaller **inner ellipse** that cuts out the rim using a **"shrink pad"**.
 
@@ -120,6 +118,8 @@ The main edge cases catered to are:
 - The plate rim, including when the plate is partly out of frame, ruining the calculation.
 
 These are handled with the hand-masking and inner-ellipse padding techniques.
+
+This part of the assignment reminded me of my Computer Vision professor, who told us in class to only use a model when necessary and never to underestimate the power of classical computer vision. Without colour masking, I would have needed a segmentation model to find the food pixels.
 
 ### 2. How I See This Solution Running in Production
 
