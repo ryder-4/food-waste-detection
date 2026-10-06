@@ -1,0 +1,10 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Output files and logs generated during runs
+output/
+
+# Raw video data (videos should stay local or be provided separately)
+data/*
+!data/.gitkeep

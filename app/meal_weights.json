@@ -1,0 +1,35 @@
+{
+    "components": {
+        "burger": 230,
+        "drumstick": 60,
+        "fries": 125,
+        "biryani": 350,
+        "chicken": 250,
+        "sandwich": 200,
+        "carrot": 60,
+        "onion": 100,
+        "cucumber": 150,
+        "pepper-chilli": 10
+    },
+    "meals": {
+        "KFC Meal": [
+            "burger",
+            "drumstick",
+            "fries"
+        ],
+        "Biryani Meal": [
+            "biryani",
+            "chicken"
+        ],
+        "Sandwich Meal": [
+            "sandwich",
+            "fries"
+        ],
+        "Salad Meal": [
+            "carrot",
+            "onion",
+            "cucumber",
+            "pepper-chilli"
+        ]
+    }
+}

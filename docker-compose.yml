@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  waste-detector:
+    build: .
+    volumes:
+      # Maps your local folders directly into the container's workspace
+      - ./app:/workspace/app
+      - ./data:/workspace/data
+      - ./output:/workspace/output
