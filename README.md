@@ -273,4 +273,5 @@ Sample `wastage_log.csv` from the provided video:
 2. Food weights – Kairo Calories: https://kairocalories.com/en/foods
 3. Pakistan Trade Portal: https://www.pakistantradeportal.gov.pk/product/
 4. Instagram: https://www.instagram.com/reel/DYem6RzttmI/?hl=en
+5. Quora: https://www.quora.com/
 
