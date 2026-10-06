@@ -102,7 +102,7 @@ def run_pipeline(video_path, model_weights, out_dir='../output'):
                 ix1, iy1, ix2, iy2 = roi
                 roi_color = (0, 0, 255) if motion_detected else (255, 255, 255)
                 cv2.rectangle(frame, (ix1, iy1), (ix2, iy2), roi_color, 2)
-                cv2.putText(frame, f"ROI (Streak: {manager.motion_streak})", (ix1, iy1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, roi_color, 2)
+                cv2.putText(frame, "ROI", (ix1, iy1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, roi_color, 2)
 
         if plate_box is not None: 
             cx, cy, r = plate_circle(plate_box, w, h, 8)
@@ -239,7 +239,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Food Waste Detection Pipeline")
     parser.add_argument('--video', type=str, default=None, help='Path to input video')
-    parser.add_argument('--weights', type=str, default='weights/latest.pt', help='Path to YOLO weights')
+    parser.add_argument('--weights', type=str, default='weights/best.pt', help='Path to YOLO weights')
     parser.add_argument('--out_dir', type=str, default='../output', help='Directory for output files')
     args = parser.parse_args()
 

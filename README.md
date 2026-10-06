@@ -49,7 +49,7 @@ This was not a food or object detection task, so my goal was not to detect every
 
 The pipeline only uses detections with a confidence of **0.8 or higher**.
 
-> **Note on the output video:** You may see inconsistent labelling or classification of food items and spoons in the output video. This is expected, because the annotations were chosen to serve the deliverables rather than general detection. For example, a spoon may not be detected when it is away from the ROI. The model was never trained on such frames, because the pipeline does not need to detect a spoon away from the ROI.
+> **Note on the output video:** You may see inconsistent labelling or classification of food items and spoons in the output video. This is expected, because the annotations were chosen to serve the deliverables rather than general detection. For example, a spoon may not be detected when it is away from the ROI. The model was never trained on such frames, because the pipeline does not need to detect a spoon away from the ROI. Moreover, since food classification is only important in the snapshot taken for food amount and weight calculation, the pipeline does not deteriorate by wrong/absent detections later/earlier than this snapshot. Even in the snapshot, a few correct detections classify the meal into it's total weight.
 
 ---
 
@@ -193,6 +193,7 @@ This approach is not very reliable. In production, I would suggest placing the b
 
 ---
 
+<a id="how-to-run-the-project"></a>
 ## How to Run the Project
 
 These steps generate the deliverables: the output video, the event images, and the `wastage_log.csv` file.
@@ -265,9 +266,11 @@ Sample `wastage_log.csv` from the provided video:
 
 ---
 
+<a id="references"></a>
 ## References
 
-1. KFC menu item weights – Instagram: [ADD LINK]
-2. [ADD SOURCE for biryani / chicken weights]
-3. [ADD SOURCE for sandwich weight]
-4. [ADD SOURCE for carrot / cucumber / onion / pepper-chilli weights]
+1. Feast: https://feastapp.ai/nutrition/
+2. Food weights – Kairo Calories: https://kairocalories.com/en/foods
+3. Pakistan Trade Portal: https://www.pakistantradeportal.gov.pk/product/
+4. Instagram: https://www.instagram.com/reel/DYem6RzttmI/?hl=en
+

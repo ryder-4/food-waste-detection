@@ -23,4 +23,4 @@ COPY app/ ./app/
 WORKDIR /workspace/app
 
 # Command to run the application natively
-CMD ["python", "main.py"]
+CMD ["python", "-u", "main.py"]
