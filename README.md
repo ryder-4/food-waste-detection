@@ -30,6 +30,7 @@ Waste Event Detection   Waste Amount Detection                  Waste Weight Det
 | `app/waste_event_detection.py` | Motion detection inside the bin |
 | `app/amount_detection.py` | Percentage of the plate covered by food |
 | `app/weight_detection.py` + `app/meal_weights.json` | Meal classification and weight in grams |
+| [Training notebook (Google Colab)](https://colab.research.google.com/drive/174KL7UhGNQVfva7M5lJ8kvjohosNFLT1?usp=drive_link) | Trains the YOLO object detection model used by the pipeline (see [Object Detection Model](#object-detection-model)) |
 
 ### Object Detection Model
 
