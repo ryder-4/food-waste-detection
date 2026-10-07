@@ -257,7 +257,7 @@ All outputs are written to `output/`:
 | `event_<id>_weight_wasted.jpg` | Detected food items, classified meal and wasted weight |
 | `wastage_log.csv` | One row per event: start/end timestamps and frames, classified meal, amount wasted (%), weight wasted (g) and confidence score |
 
-Sample `wastage_log.csv` from the provided video:
+Sample `wastage_log.csv` from one of the provided videos:
 
 | Event_ID | Start (s) | End (s) | Meal | Amount Wasted (%) | Weight Wasted (g) | Confidence |
 |---|---|---|---|---|---|---|
